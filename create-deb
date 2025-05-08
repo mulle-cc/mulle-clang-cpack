@@ -133,7 +133,7 @@ download()
 
    local dist
 
-   dist="$( ssh ${SSHFLAGS} "${user}@${vm}" "`get_dist`" )" || exit 1
+   dist="$( ssh ${SSHFLAGS} "${user}@${vm}" "$(declare -f get_dist) && get_dist")" || exit 1
    # not sure who gives me a \r here
    dist="`tr -d '\015' <<< "${dist}" `"
 
@@ -165,7 +165,7 @@ upload()
 
    local dist
 
-   dist="$( ssh ${SSHFLAGS} "${user}@${vm}" "`get_dist`" )" || exit 1
+   dist="$( ssh ${SSHFLAGS} "${user}@${vm}" "$(declare -f get_dist) && get_dist")" || exit 1
    # not sure who gives me a \r here
    dist="`tr -d '\015' <<< "${dist}" `"
 
@@ -200,7 +200,6 @@ main()
    done
 }
 
-set -x
 
 VM="bullseye"
 if [ $# -ne 0 ] && ! is_function "$1"

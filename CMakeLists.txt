@@ -1,4 +1,4 @@
-cmake_minimum_required (VERSION 2.8)
+cmake_minimum_required( VERSION 3.13...99.99)
 
 project ( mulle-clang-cpack NONE) # VERSION 4.0.0.0)
 
@@ -55,6 +55,9 @@ set( CPACK_DEBIAN_PACKAGE_DESCRIPTION "mulle-clang, the mulle-objc compiler base
 
 set( CPACK_RPM_PACKAGE_VENDOR "Mulle kybernetiK")
 set( CPACK_RPM_PACKAGE_DESCRIPTION "${CPACK_DEBIAN_PACKAGE_DESCRIPTION}")
+set( CPACK_RPM_PACKAGE_GROUP "Development/Tools")
+set( CPACK_RPM_PACKAGE_LICENSE "Apache-2.0 with LLVM-exception")
+set( CPACK_RPM_PACKAGE_URL "https://github.com/mulle-cc/mulle-clang-project")
 
 ######
 #

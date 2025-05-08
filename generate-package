@@ -2,21 +2,21 @@
 
 case "`uname`" in
    Darwin*)
-      GENERATOR="productbuild"
+      GENERATORS="productbuild"
    ;;
    Linux*)
-      GENERATOR="DEB"
+      GENERATORS="DEB:RPM"
    ;;
    Win*|Min*)
-      GENERATOR="NSIS"
+      GENERATORS="NSIS"
    ;;
    *)
-      GENERATOR="TGZ"
+      GENERATORS="TGZ"
    ;;
 esac
 
 
-GENERATOR="${1:-${GENERATOR}}"
+GENERATORS="${1:-${GENERATORS}}"
 
 if [ -z "${VERSION}" ]
 then
@@ -36,5 +36,11 @@ mkdir package || exit 1
 cd package
 cmake ${CMAKE_FLAGS} ..
 make ${MAKE_FLAGS}
-cpack ${CPACK_FLAGS} -G "${GENERATOR}" ..
 
+IFS=':'
+for GENERATOR in ${GENERATORS}
+do
+   IFS=
+   cpack ${CPACK_FLAGS} -G "${GENERATOR}" ..
+done
+IFS=

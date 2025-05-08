@@ -73,6 +73,12 @@ chmod 755 install-prerequisites
 ./install-prerequisites --no-lldb
 ```
 
+Install **rpm** to build rpm packages:
+
+``` bash
+sudo apt-get install rpm # build-essential
+```
+
 ## One script does all
 
 On the VM Host (!) run
@@ -134,7 +140,7 @@ chmod 755 generate-package
 
 ### macOS - brew
 
- ``` bash
+``` bash
 cp mulle-clang-project.rb /usr/local/Homebrew/Library/Taps/mulle-objc/homebrew-software/Formula/
 brew uninstall mulle-objc/software/mulle-clang-project
 brew install --formula --build-bottle mulle-clang-project.rb
