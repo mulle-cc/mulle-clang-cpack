@@ -16,7 +16,7 @@ get_dist()
 }
 
 
-VERSION="${VERSION:-17.0.6.2}"
+VERSION="${VERSION:-20.1.4.0}"
 RC="${RC}"
 MAKETOOL="${MAKETOOL:-ninja}"
 DIST="`get_dist`"

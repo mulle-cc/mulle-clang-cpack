@@ -6,26 +6,14 @@ As a bonus a symbolic link is also generated and packaged.
 
 ## Create a fresh debian VM (if needed)
 
-* currently 4GB of free file space is needed for a non-debug build
+* currently 4GB of **free** file space is needed for a non-debug build
 * for debug build multiply by 5
 * give it as many CPUs as you can spare
 * needs 16GB RAM (sic) at least
 * Consider if VM should not have swap space, prefer to crash and reconfigure
 
+*SEE BOTTOM OF TEXT FOR SOME virsh TIPS*
 
-Here we are installing into a fresh "buster" VM  of the same name:
-
-``` bash
-scp ~/.ssh/id_rsa_vm.pub buster:
-ssh buster
-mkdir .ssh
-mv id_rsa_vm.pub .ssh/authorized_keys
-chmod 400 .ssh/authorized_keys
-chmod 700 .ssh
-```
-
-Add `buster` to `/etc/hosts` on host.
-Add `buster` to `~/.ssh/config` on host.
 
 > #### Or use an aws instance
 >
@@ -53,11 +41,11 @@ Add `buster` to `~/.ssh/config` on host.
 * sudo
 * git
 
-On debian, install **git** and get **sudo** happening
+On debian, install **git**, **wget** and get **sudo** happening
 
 ``` bash
 su
-apt-get install git sudo
+apt-get install git sudo wget
 /sbin/usermod -aG sudo <loginname> # or your login
 sudo /sbin/visudo
 # Allow members of group sudo to execute any command
@@ -68,7 +56,7 @@ sudo /sbin/visudo
 Install **cmake** and such things:
 
 ``` bash
-wget 'https://raw.githubusercontent.com/mulle-cc/mulle-clang-project/mulle/14.0.6/clang/bin/install-prerequisites'
+wget 'https://raw.githubusercontent.com/mulle-cc/mulle-clang-project/refs/heads/mulle/20.1.4/clang/bin/install-prerequisites'
 chmod 755 install-prerequisites
 ./install-prerequisites --no-lldb
 ```
@@ -84,7 +72,7 @@ sudo apt-get install rpm # build-essential
 On the VM Host (!) run
 
 ``` bash
-VERSION=17.0.6.0 RC= ./create-deb "bullseye"
+VERSION=20.1.4.0 RC= ./create-deb "bullseye"
 ```
 
 
@@ -93,7 +81,7 @@ VERSION=17.0.6.0 RC= ./create-deb "bullseye"
 On the VM guest run
 
 ``` bash
-VERSION=17.0.6.0 package-build
+VERSION=20.1.4.0 package-build
 ```
 
 
@@ -113,7 +101,7 @@ git clone https://github.com/mulle-cc/mulle-clang-cpack.git
 Set `VERSION` appropriately:
 
 ``` bash
-VERSION="17.0.6.0"
+VERSION="20.1.4.0"
 RC="" # e.g. -RC1
 mkdir mono
 cd mono
@@ -147,3 +135,84 @@ brew install --formula --build-bottle mulle-clang-project.rb
 brew bottle mulle-objc/software/mulle-clang-project
 ```
 
+---
+
+
+### In virsh
+
+Install a new VM "normally".
+
+### Afterwards
+
+Get a free IP if you have setup DHCP like I have:
+
+``` bash
+$ virsh net-dumpxml default
+<network>
+  <name>default</name>
+  <uuid>07d4c99e-e823-4fe8-b0b7-dd1c5b23d2e9</uuid>
+  <forward mode='nat'>
+    <nat>
+      <port start='1024' end='65535'/>
+    </nat>
+  </forward>
+  <bridge name='virbr0' stp='on' delay='0'/>
+  <mac address='52:54:00:18:05:cb'/>
+  <ip address='192.168.122.1' netmask='255.255.255.0'>
+    <dhcp>
+      <range start='192.168.122.2' end='192.168.122.254'/>
+      <host mac='00:50:56:01:1f:a5' name='buster' ip='192.168.122.2'/>
+      <host mac='00:50:56:01:3f:bf' name='bullseye' ip='192.168.122.3'/>
+      <host mac='52:54:00:92:d4:7b' name='catalina' ip='192.168.122.4'/>
+      <host mac='00:50:56:01:7f:bf' name='bookworm' ip='192.168.122.5'/>
+      <host mac='52:54:00:d2:c5:98' name='alaaf-boot' ip='192.168.122.6'/>
+      <host mac='32:a4:ef:8a:9e:38' name='alaaf' ip='192.168.122.66'/>
+      <host mac='52:54:00:be:0b:9c' name='trixie' ip='192.168.122.7'/>
+      <host mac='00:50:56:01:df:bf' name='free5' ip='192.168.122.8'/>
+      <host mac='00:50:56:01:ff:bf' name='free6' ip='192.168.122.9'/>
+      <host mac='00:50:56:02:1f:bf' name='free7' ip='192.168.122.10'/>
+      <host mac='00:50:56:02:3f:bf' name='free8' ip='192.168.122.11'/>
+      <host mac='00:50:56:02:5f:bf' name='focal' ip='192.168.122.12'/>
+      <host mac='00:50:56:02:7f:bf' name='free9' ip='192.168.122.13'/>
+      <host mac='00:50:56:02:9f:bf' name='free10' ip='192.168.122.14'/>
+      <host mac='00:50:56:02:bf:bf' name='free11' ip='192.168.122.15'/>
+      <host mac='00:50:56:02:df:bf' name='free12' ip='192.168.122.16'/>
+      <host mac='00:50:56:02:ff:bf' name='free13' ip='192.168.122.17'/>
+    </dhcp>
+  </ip>
+</network>
+```
+
+
+Pick a free one and `virsh net-edit` to desired hostname, put the VM MAC in
+there.
+
+``` bash
+$ virsh net-destroy default
+$ virsh net-start default
+```
+
+Put name with chosen IP into `/etc/hosts`.
+
+
+Here we are setting up a fresh "buster" VM  of the same name:
+
+``` bash
+scp ~/.ssh/id_rsa_vm.pub buster:
+ssh buster
+```
+
+and then
+
+``` bash
+mkdir .ssh
+mv id_rsa_vm.pub .ssh/authorized_keys
+chmod 400 .ssh/authorized_keys
+chmod 700 .ssh
+```
+
+Add `buster` to `/etc/hosts` on host.
+Add `buster` to `~/.ssh/config` on host.
+
+
+Now you should be able to say `ssh buster` and you are in.
