@@ -67,12 +67,19 @@ Install **rpm** to build rpm packages:
 sudo apt-get install rpm # build-essential
 ```
 
+Install **clang** as gcc has trouble compiling llvm, it should be picked up by default:
+
+``` bash
+sudo apt-get install clang # build-essential
+```
+
+
 ## One script does all
 
 On the VM Host (!) run
 
 ``` bash
-VERSION=20.1.4.0 RC= ./create-deb "bullseye"
+VERSION=21.1.8.1 RC= ./create-deb "bullseye"
 ```
 
 
@@ -81,7 +88,7 @@ VERSION=20.1.4.0 RC= ./create-deb "bullseye"
 On the VM guest run
 
 ``` bash
-VERSION=20.1.4.0 package-build
+VERSION=21.1.8.1 package-build
 ```
 
 
@@ -101,7 +108,7 @@ git clone https://github.com/mulle-cc/mulle-clang-cpack.git
 Set `VERSION` appropriately:
 
 ``` bash
-VERSION="20.1.4.0"
+VERSION="21.1.8.1"
 RC="" # e.g. -RC1
 mkdir mono
 cd mono

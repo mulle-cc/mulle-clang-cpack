@@ -16,13 +16,13 @@ get_dist()
 }
 
 
-VERSION="${VERSION:-20.1.4.0}"
+VERSION="${VERSION:-21.1.8.1}"
 RC="${RC}"
 MAKETOOL="${MAKETOOL:-ninja}"
 DIST="`get_dist`"
 CC="${CC:-clang}"
 CXX="${CXX:-clang++}"
-
+ARCH="${ARCH:-amd64}"
 
 clean()
 {
@@ -77,9 +77,9 @@ verpack()
       cd mono &&
       chmod 755 generate-package &&
       VERSION="${VERSION}" ./generate-package &&
-      mv "package/mulle-clang-${VERSION}${RC}-Linux.deb" "../mulle-clang-${VERSION}${RC}-${DIST}-amd64.deb" &&
+      mv "package/mulle-clang-${VERSION}${RC}-Linux.deb" "../mulle-clang-${VERSION}${RC}-${DIST}-${ARCH}.deb" &&
 
-      echo "Debian Package \"mulle-clang-${VERSION}${RC}-${DIST}-amd64.deb\" ready" >&2
+      echo "Debian Package \"mulle-clang-${VERSION}${RC}-${DIST}-${ARCH}.deb\" ready" >&2
    )
 }
 
@@ -89,8 +89,8 @@ verpack()
 #
 upload()
 {
-   scp "mulle-clang-${VERSION}${RC}-${DIST}-amd64.deb" \
-       "oswald.codeon.de:debian-software/dists/${DIST}/main/binary-amd64/"
+   scp "mulle-clang-${VERSION}${RC}-${DIST}-${ARCH}.deb" \
+       "oswald.codeon.de:debian-software/dists/${DIST}/main/binary-${ARCH}.deb/"
 }
 
 

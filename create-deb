@@ -130,6 +130,7 @@ download()
    local user="$2"
    local version="$3"
    local rc="$4"
+   local arch="${r5:-amd64}"
 
    local dist
 
@@ -150,8 +151,8 @@ download()
 
    local srcfilename
 
-   srcfilename="mulle-clang-${version}${rc}-${dist}-amd64.deb"
-   filename="mulle-clang-${version}${rc}-${dist}-amd64.deb"
+   srcfilename="mulle-clang-${version}${rc}-${dist}-${arch}.deb"
+   filename="mulle-clang-${version}${rc}-${dist}-${arch}.deb"
    scp "${user}@${vm}:${srcfilename}" "${filename}"
 }
 
@@ -162,7 +163,7 @@ upload()
    local user="$2"
    local version="$3"
    local rc="$4"
-
+   local arch="${5:-amd64}"
    local dist
 
    dist="$( ssh ${SSHFLAGS} "${user}@${vm}" "$(declare -f get_dist) && get_dist")" || exit 1
@@ -180,11 +181,11 @@ upload()
       ;;
    esac
 
-   filename="mulle-clang-${version}${rc}-${dist}-amd64.deb"
+   filename="mulle-clang-${version}${rc}-${dist}-${arch}.deb"
 
-   ssh ${SSHFLAGS} "oswald" mkdir -p "debian-software/dists/${dist}/${debname}/binary-amd64" || exit 1
+   ssh ${SSHFLAGS} "oswald" mkdir -p "debian-software/dists/${dist}/${debname}/binary-${arch}" || exit 1
 
-   scp "${filename}" "oswald:debian-software/dists/${dist}/${debname}/binary-amd64/"
+   scp "${filename}" "oswald:debian-software/dists/${dist}/${debname}/binary-${arch}/"
    # ssh oswald "cd debian-software && ./update.sh && ./upload.sh"
 }
 
@@ -201,14 +202,14 @@ main()
 }
 
 
-VM="bullseye"
+VM="trixie"
 if [ $# -ne 0 ] && ! is_function "$1"
 then
    VM="$1"
    shift
 fi
 
-VERSION="${VERSION:-20.1.4.0}"
+VERSION="${VERSION:-21.1.8.1}"
 
 case "$RC" in
    RC*)

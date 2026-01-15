@@ -1,4 +1,4 @@
-cmake_minimum_required( VERSION 3.13...99.99)
+cmake_minimum_required( VERSION 3.15...99.99)
 
 project ( mulle-clang-cpack NONE) # VERSION 4.0.0.0)
 
