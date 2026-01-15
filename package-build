@@ -47,7 +47,7 @@ download()
    (
       cd mono &&
       echo "Downloading ${url}" >&2 &&
-      wget -O - "${url}" | tar xfz - &&
+      wget wget --progress=dot:giga -q --show-progress -O - "${url}" | tar xfz - &&
       mv "mulle-clang-project-${VERSION}${RC}" "mulle-clang-project"
    )
 }
