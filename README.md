@@ -56,7 +56,7 @@ sudo /sbin/visudo
 Install **cmake** and such things:
 
 ``` bash
-wget 'https://raw.githubusercontent.com/mulle-cc/mulle-clang-project/refs/heads/mulle/20.1.4/clang/bin/install-prerequisites'
+wget wget --progress=dot:giga -q --show-progress 'https://raw.githubusercontent.com/mulle-cc/mulle-clang-project/refs/heads/mulle/21.1.8/clang/bin/install-prerequisites'
 chmod 755 install-prerequisites
 ./install-prerequisites --no-lldb
 ```

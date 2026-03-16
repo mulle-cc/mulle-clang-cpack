@@ -225,7 +225,11 @@ case "$RC" in
    ;;
 esac
 
-
+CPACK_FLAGS="${CPACK_FLAGS:--wno-dev}"
+if [ "${CPACK_FLAGS}" = 'NONE' ]
+then
+   CPACK_FLAGS=
+fi
 
 if [ $# -eq 0 ]
 then
