@@ -209,7 +209,7 @@ then
    shift
 fi
 
-VERSION="${VERSION:-21.1.8.1}"
+VERSION="${VERSION:-21.1.8.5}"
 
 case "$RC" in
    RC*)
