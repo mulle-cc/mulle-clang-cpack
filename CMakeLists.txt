@@ -23,9 +23,9 @@ install( DIRECTORY "opt/mulle-clang-project/${NAME}" DESTINATION "/opt/mulle-cla
 if(CMAKE_HOST_UNIX)
 #   message( STATUS "Create symlinks")
 #   execute_process(COMMAND ln -s ../../opt/mulle-clang/${NAME}/bin/clang-cpp mulle-clang-cpp)
-#   execute_process(COMMAND ln -s ../../opt/mulle-clang-project/${NAME}/bin/mulle-scan-build mulle-scan-build)
-#   execute_process(COMMAND ln -s ../../opt/mulle-clang-project/${NAME}/bin/mulle-nm mulle-nm)
-#   execute_process(COMMAND ln -s ../../opt/mulle-clang-project/${NAME}/bin/mulle-clang mulle-clang)
+   execute_process(COMMAND ln -s ../../opt/mulle-clang-project/${NAME}/bin/mulle-scan-build mulle-scan-build)
+   execute_process(COMMAND ln -s ../../opt/mulle-clang-project/${NAME}/bin/mulle-nm mulle-nm)
+   execute_process(COMMAND ln -s ../../opt/mulle-clang-project/${NAME}/bin/mulle-clang mulle-clang)
 #   execute_process(COMMAND ln -s ../../opt/mulle-clang/${NAME}/bin/lldb mulle-lldb)
 #   execute_process(COMMAND ln -s ../../opt/mulle-clang/${NAME}/bin/lldb-mi mulle-lldb-mi)
 
