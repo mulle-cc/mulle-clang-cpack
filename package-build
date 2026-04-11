@@ -57,7 +57,7 @@ build()
 {
    (
       cd mono &&
-      mkdir -p "opt/mulle-clang/${VERSION}${RC}" &&
+      mkdir -p "opt/mulle-clang-project/${VERSION}${RC}" &&
       VERSION="${VERSION}" \
       RC="${RC}" \
       CC="${CC}" \
