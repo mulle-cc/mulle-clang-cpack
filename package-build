@@ -36,13 +36,9 @@ clean()
    # symlink mono/opt/mulle-clang-project -> /opt/mulle-clang-project so
    # cmake installs there and generate-package can find it via relative path
    mkdir -p mono/opt
-   if [ -d /opt/mulle-clang-project ]
-   then
-      ln -s /opt/mulle-clang-project mono/opt/mulle-clang-project
-   else
-      mkdir -p mono/opt/mulle-clang-project
-      sudo ln -s "$PWD/mono/opt/mulle-clang-project" "/opt/mulle-clang-project"
-   fi
+   sudo rm -rf /opt/mulle-clang-project
+   mkdir -p mono/opt/mulle-clang-project
+   sudo ln -sf "$PWD/mono/opt/mulle-clang-project" "/opt/mulle-clang-project"
 }
 
 
