@@ -79,7 +79,7 @@ sudo apt-get install clang # build-essential
 On the VM Host (!) run
 
 ``` bash
-VERSION=22.1.2.2 RC= ./create-deb "bullseye"
+VERSION=22.1.2.6 RC= ./create-deb "bullseye"
 ```
 
 
@@ -88,7 +88,7 @@ VERSION=22.1.2.2 RC= ./create-deb "bullseye"
 On the VM guest run
 
 ``` bash
-VERSION=22.1.2.2 package-build
+VERSION=22.1.2.6 package-build
 ```
 
 
@@ -108,7 +108,7 @@ git clone https://github.com/mulle-cc/mulle-clang-cpack.git
 Set `VERSION` appropriately:
 
 ``` bash
-VERSION="22.1.2.2"
+VERSION="22.1.2.6"
 RC="" # e.g. -RC1
 mkdir mono
 cd mono
