@@ -56,7 +56,7 @@ sudo /sbin/visudo
 Install **cmake** and such things:
 
 ``` bash
-wget 'https://raw.githubusercontent.com/mulle-cc/mulle-clang-project/refs/heads/mulle/22.1.2/clang/bin/install-prerequisites'
+wget 'https://raw.githubusercontent.com/mulle-cc/mulle-clang-project/refs/heads/mulle/22.1.8/clang/bin/install-prerequisites'
 chmod 755 install-prerequisites
 ./install-prerequisites --no-lldb
 ```
@@ -79,7 +79,7 @@ sudo apt-get install clang # build-essential
 On the VM Host (!) run
 
 ``` bash
-VERSION=22.1.2.6 RC= ./create-deb "bullseye"
+VERSION=22.1.8.7 RC= ./create-deb "bullseye"
 ```
 
 
@@ -88,7 +88,7 @@ VERSION=22.1.2.6 RC= ./create-deb "bullseye"
 On the VM guest run
 
 ``` bash
-VERSION=22.1.2.6 package-build
+VERSION=22.1.8.7 package-build
 ```
 
 
@@ -108,7 +108,7 @@ git clone https://github.com/mulle-cc/mulle-clang-cpack.git
 Set `VERSION` appropriately:
 
 ``` bash
-VERSION="22.1.2.6"
+VERSION="22.1.8.7"
 RC="" # e.g. -RC1
 mkdir mono
 cd mono
